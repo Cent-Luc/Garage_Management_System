@@ -433,14 +433,7 @@ public class Cars {
 
     private void deleteRecord() {
 	// If the user wants to leave the new record state simply set newRecordState to false and go prev
-	if(leaveNewRecordState()) {
-	    newRecordState = false;
-	    if(currentIndex == 0) {
-		goFirst();
-	    } else {
-		goPrev();
-	    }
-	    
+	if(!leaveNewRecordState()) {
 	    return;
 	}
 
@@ -485,6 +478,7 @@ public class Cars {
 	// Update the local storage of the cars
 	carDb.getAllCars();
 	cars = carDb.cars;
+	newRecordState = false;
 	// Navigate accordingly
 	if(currentIndex > (cars.size() - 2)) { // If the record deleted was the last record
 	    goLast();
