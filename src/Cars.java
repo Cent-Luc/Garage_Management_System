@@ -79,7 +79,7 @@ public class Cars {
 	lblOwnerIdNumber.setMnemonicParsing(true);
 
 	GridPane grdFields = new GridPane();
-	grdFields.setVgap(20);
+	grdFields.setVgap(25);
 	grdFields.setHgap(10);
 	grdFields.setMaxWidth(Double.MAX_VALUE);
 	// grdFields.setGridLinesVisible(true);

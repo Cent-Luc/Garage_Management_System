@@ -29,20 +29,20 @@ public class Main extends Application {
 	HBox root = new HBox();
 
 	VBox vbxRow1 = new VBox(10);
-	vbxRow1.setPrefWidth(150);
+	vbxRow1.setPrefWidth(200);
 	vbxRow1.setStyle(
-		"-fx-background-color: #0d1321;");
+		"-fx-background-color: #0b3142;");
 	HBox hbxLogo = new HBox(5);
-	hbxLogo.setPrefSize(150, 55);
+	hbxLogo.setPrefSize(200, 55);
 	hbxLogo.setStyle(
-		"-fx-background-color: #f26419;");
+		"-fx-background-color: #0f5257;");
 	vbxRow1.getChildren().addAll(hbxLogo);
 
 
 	VBox vbxRow2 = new VBox(25);
-	vbxRow2.setPrefWidth(550);
+	vbxRow2.setPrefWidth(650);
 	vbxRow2.setStyle(
-		"-fx-background-color: #2f4858;");
+		"-fx-background-color: #9c92a3;");
 
 	HBox hbxNavBar = new HBox(5);
 	Button btnClose = new Button();
@@ -84,20 +84,12 @@ public class Main extends Application {
 	hbxTitle.setPrefSize(250, 30);
 	// Set the max width so that the hbx does not scale up to fill the vbx
 	hbxTitle.setMaxWidth(250);
-	// Set the background color. If i dont the shadow wont show
-	hbxTitle.setStyle(
-		"-fx-background-color: #2f4858;" +
-		"-fx-background-radius: 2.0;");
-	// Add shadow to give a raised card effect
-	// DropShadow dsEffect = new DropShadow();
-	// dsEffect.setOffsetX(0.0);
-	// dsEffect.setOffsetY(0.0);
-	// hbxTitle.setEffect(dsEffect);
+	hbxTitle.setStyle("-fx-background-radius: 2.0;");
 	// Add a label to the title
 	Label lblTitle = new Label("Cars");
 	lblTitle.setStyle(
-		"-fx-text-fill: #f1f0cc;" +
-		"-fx-font-size: 20px;" +
+		"-fx-text-fill: #0b3142;" +
+		"-fx-font-size: 23px;" +
 		"-fx-font-weight: bolder;");
 	// Center the label in the hbox
 	hbxTitle.setAlignment(Pos.CENTER);
@@ -109,15 +101,12 @@ public class Main extends Application {
 	hbxNavBar.setAlignment(Pos.TOP_RIGHT);
 
 	// Offset the title from the right to make it appear centered
-	hbxNavBar.setMargin(hbxTitle, new Insets(10, 110, 0, 0));
+	hbxNavBar.setMargin(hbxTitle, new Insets(10, 160, 0, 0));
 	
 	HBox hbxContent = new HBox(10);
-	hbxContent.setPrefSize(500, 320);
-	hbxContent.setMaxWidth(500);
+	hbxContent.setMaxWidth(600);
 	// Set the bg color
-	hbxContent.setStyle(
-		"-fx-background-color: #2f4858;" +
-		"-fx-background-radius: 2.0;");
+	hbxContent.setStyle("-fx-background-radius: 2.0;");
 
 	// Add the employee root element
 	Cars cars = new Cars();
