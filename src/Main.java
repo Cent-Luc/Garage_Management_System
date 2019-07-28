@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 
 public class Main extends Application {
     private Stage stage;
+    private Label lblTitle;
+    private HBox hbxContent;
     private double dragOffsetX;
     private double dragOffsetY;
 
@@ -36,7 +38,9 @@ public class Main extends Application {
 	hbxLogo.setPrefSize(200, 55);
 	hbxLogo.setStyle(
 		"-fx-background-color: #0f5257;");
-	vbxRow1.getChildren().addAll(hbxLogo);
+	Button btnCarOwners = new Button("Car Owners");
+	btnCarOwners.setOnAction(e -> setVbxRow2Contents("car_owner"));
+	vbxRow1.getChildren().addAll(hbxLogo, btnCarOwners);
 
 
 	VBox vbxRow2 = new VBox(25);
@@ -86,7 +90,7 @@ public class Main extends Application {
 	hbxTitle.setMaxWidth(250);
 	hbxTitle.setStyle("-fx-background-radius: 2.0;");
 	// Add a label to the title
-	Label lblTitle = new Label("Cars");
+	lblTitle = new Label("Cars");
 	lblTitle.setStyle(
 		"-fx-text-fill: #0b3142;" +
 		"-fx-font-size: 23px;" +
@@ -103,12 +107,12 @@ public class Main extends Application {
 	// Offset the title from the right to make it appear centered
 	hbxNavBar.setMargin(hbxTitle, new Insets(10, 160, 0, 0));
 	
-	HBox hbxContent = new HBox(10);
+	hbxContent = new HBox(10);
 	hbxContent.setMaxWidth(600);
 	// Set the bg color
 	hbxContent.setStyle("-fx-background-radius: 2.0;");
 
-	// Add the employee root element
+	// Add the car ui's root element
 	Cars cars = new Cars();
 	VBox rtContent = cars.getContent();
 	hbxContent.getChildren().addAll(rtContent);
@@ -147,5 +151,20 @@ public class Main extends Application {
 	// Move the stage by the drag amount
 	stage.setX(e.getScreenX() - this.dragOffsetX);
 	stage.setY(e.getScreenY() - this.dragOffsetY);
+    }
+
+    private void setVbxRow2Contents(String UIName) {
+	VBox uiContent;
+	switch(UIName) {
+	    case "car_owner":
+		CarOwners carOwnersUI = new CarOwners();
+		lblTitle.setText("Car Owners");
+		uiContent = carOwnersUI.getContent();
+		hbxContent.getChildren().set(0, uiContent);
+		hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+		break;
+	    default:
+		break;
+	}
     }
 }
