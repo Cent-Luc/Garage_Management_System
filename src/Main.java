@@ -14,6 +14,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Main extends Application {
     private Stage stage;
@@ -35,15 +37,20 @@ public class Main extends Application {
 	vbxRow1.setStyle(
 		"-fx-background-color: #0b3142;");
 	HBox hbxLogo = new HBox(5);
-	hbxLogo.setPrefSize(200, 55);
 	hbxLogo.setStyle(
 		"-fx-background-color: #0f5257;");
+	Image imgLogo = new Image(getClass().getResourceAsStream("media/garage_logo.png"));
+	ImageView imgvLogo = new ImageView(imgLogo);
+	imgvLogo.setFitHeight(180);
+	imgvLogo.setPreserveRatio(true);
+	hbxLogo.getChildren().addAll(imgvLogo);
+
 	Button btnCarOwners = new Button("Car Owners");
 	btnCarOwners.setOnAction(e -> setVbxRow2Contents("car_owner"));
 	vbxRow1.getChildren().addAll(hbxLogo, btnCarOwners);
 
 
-	VBox vbxRow2 = new VBox(25);
+	VBox vbxRow2 = new VBox();
 	vbxRow2.setPrefWidth(650);
 	vbxRow2.setStyle(
 		"-fx-background-color: #9c92a3;");
@@ -83,11 +90,17 @@ public class Main extends Application {
 			btnClose.setPadding(new Insets(10, 13, 10, 12));
 		    }
 	});
-	
+
+	Label lblAppTitle = new Label("Garage Management System");
+	lblAppTitle.setStyle(
+		"-fx-text-fill: #0b3142;" +
+		"-fx-font-size: 30px;" +
+		"-fx-font-weight: bolder;");
+
 	HBox hbxTitle = new HBox(10);
-	hbxTitle.setPrefSize(250, 30);
+	hbxTitle.setPrefSize(750, 30);
 	// Set the max width so that the hbx does not scale up to fill the vbx
-	hbxTitle.setMaxWidth(250);
+	hbxTitle.setMaxWidth(750);
 	hbxTitle.setStyle("-fx-background-radius: 2.0;");
 	// Add a label to the title
 	lblTitle = new Label("Cars");
@@ -98,14 +111,14 @@ public class Main extends Application {
 	// Center the label in the hbox
 	hbxTitle.setAlignment(Pos.CENTER);
 	// Add the label to the hbxTitle
-	hbxTitle.getChildren().addAll(lblTitle);
+	hbxTitle.getChildren().addAll(lblAppTitle);
 	// Add the title to the navbar
 	// Add the button to the hbxNavBar
 	hbxNavBar.getChildren().addAll(hbxTitle, btnClose);
 	hbxNavBar.setAlignment(Pos.TOP_RIGHT);
 
 	// Offset the title from the right to make it appear centered
-	hbxNavBar.setMargin(hbxTitle, new Insets(10, 160, 0, 0));
+	hbxNavBar.setMargin(hbxTitle, new Insets(10, 0, 0, 40));
 	
 	hbxContent = new HBox(10);
 	hbxContent.setMaxWidth(600);
@@ -121,9 +134,10 @@ public class Main extends Application {
 	// Add the shadow effect
 	// hbxContent.setEffect(dsEffect);
 	// Add the navbar and content to row 2
-	vbxRow2.getChildren().addAll(hbxNavBar, hbxContent);
+	vbxRow2.getChildren().addAll(hbxNavBar, lblTitle, hbxContent);
 	// Offset the margin of the content from the left
 	vbxRow2.setMargin(hbxContent, new Insets(0, 0, 25, 25));
+	vbxRow2.setMargin(lblTitle, new Insets(15, 0, 0, 25));
 
 	root.getChildren().addAll(vbxRow1, vbxRow2);
 
