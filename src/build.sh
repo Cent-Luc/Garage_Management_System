@@ -10,7 +10,11 @@ echo "4. CarOwnerTbl"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls CarOwnerTbl.java
 echo "5. CarOwners"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls CarOwners.java
-echo "6. Main"
+echo "6. SparesInventoryTbl"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls SparesInventory.java
+echo "7. SparesInventory"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls SparesInventory.java
+echo "8. Main"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls Main.java
 echo "===================="
 echo "Done"

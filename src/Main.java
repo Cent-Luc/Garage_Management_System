@@ -47,7 +47,11 @@ public class Main extends Application {
 
 	Button btnCarOwners = new Button("Car Owners");
 	btnCarOwners.setOnAction(e -> setVbxRow2Contents("car_owner"));
-	vbxRow1.getChildren().addAll(hbxLogo, btnCarOwners);
+
+	Button btnSparesInventory = new Button("Spares Inventory");
+	btnSparesInventory.setOnAction(e -> setVbxRow2Contents("spares_inventory"));
+
+	vbxRow1.getChildren().addAll(hbxLogo, btnCarOwners, btnSparesInventory);
 
 
 	VBox vbxRow2 = new VBox();
@@ -177,6 +181,12 @@ public class Main extends Application {
 		hbxContent.getChildren().set(0, uiContent);
 		hbxContent.setHgrow(uiContent, Priority.ALWAYS);
 		break;
+	    case "spares_inventory":
+		SparesInventory sparesInventoryUI = new SparesInventory();
+		lblTitle.setText("Spares Inventory");
+		uiContent = sparesInventoryUI.getContent();
+		hbxContent.getChildren().set(0, uiContent);
+		hbxContent.setHgrow(uiContent, Priority.ALWAYS);
 	    default:
 		break;
 	}
