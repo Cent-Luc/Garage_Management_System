@@ -45,13 +45,19 @@ public class Main extends Application {
 	imgvLogo.setPreserveRatio(true);
 	hbxLogo.getChildren().addAll(imgvLogo);
 
+	Button btnCar = new Button("Car");
+	btnCar.setOnAction(e -> setVbxRow2Contents("car"));
+
 	Button btnCarOwners = new Button("Car Owners");
 	btnCarOwners.setOnAction(e -> setVbxRow2Contents("car_owner"));
 
 	Button btnSparesInventory = new Button("Spares Inventory");
 	btnSparesInventory.setOnAction(e -> setVbxRow2Contents("spares_inventory"));
 
-	vbxRow1.getChildren().addAll(hbxLogo, btnCarOwners, btnSparesInventory);
+	Button btnToolsInventory = new Button("Tools Inventory");
+	btnToolsInventory.setOnAction(e -> setVbxRow2Contents("tools_inventory"));
+
+	vbxRow1.getChildren().addAll(hbxLogo, btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory);
 
 
 	VBox vbxRow2 = new VBox();
@@ -174,19 +180,32 @@ public class Main extends Application {
     private void setVbxRow2Contents(String UIName) {
 	VBox uiContent;
 	switch(UIName) {
+		case "car":
+			Cars carsUI = new Cars();
+			lblTitle.setText("Cars");
+			uiContent = carsUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
 	    case "car_owner":
-		CarOwners carOwnersUI = new CarOwners();
-		lblTitle.setText("Car Owners");
-		uiContent = carOwnersUI.getContent();
-		hbxContent.getChildren().set(0, uiContent);
-		hbxContent.setHgrow(uiContent, Priority.ALWAYS);
-		break;
+			CarOwners carOwnersUI = new CarOwners();
+			lblTitle.setText("Car Owners");
+			uiContent = carOwnersUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
 	    case "spares_inventory":
-		SparesInventory sparesInventoryUI = new SparesInventory();
-		lblTitle.setText("Spares Inventory");
-		uiContent = sparesInventoryUI.getContent();
-		hbxContent.getChildren().set(0, uiContent);
-		hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			SparesInventory sparesInventoryUI = new SparesInventory();
+			lblTitle.setText("Spares Inventory");
+			uiContent = sparesInventoryUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+		case "tools_inventory":
+			ToolsInventory toolsInventoryUI = new ToolsInventory();
+			lblTitle.setText("Tools Inventory");
+			uiContent = toolsInventoryUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
 	    default:
 		break;
 	}

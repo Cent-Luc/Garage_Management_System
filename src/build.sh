@@ -14,7 +14,11 @@ echo "6. SparesInventoryTbl"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls SparesInventory.java
 echo "7. SparesInventory"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls SparesInventory.java
-echo "8. Main"
+echo "8. ToolsInventoryTbl"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls ToolsInventory.java
+echo "9. ToolsInventory"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls ToolsInventory.java
+echo "10. Main"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls Main.java
 echo "===================="
 echo "Done"
