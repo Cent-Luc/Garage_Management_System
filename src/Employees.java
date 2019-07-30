@@ -263,7 +263,7 @@ public class Employees {
 	    return;
 	} else {
 	    currentIndex--;
-	    Employee employee = employees.get(0);
+	    Employee employee = employees.get(currentIndex);
 		txtIdNumber.setText(String.valueOf(employee.idNumber));
 		txtFirstName.setText(employee.firstName);
 		txtSurname.setText(employee.surname);
@@ -285,7 +285,7 @@ public class Employees {
 	    // inserted but not saved to get rid of the blanks
 	    // TODO: Abstract this appropriately
 	    currentIndex = employees.size() - 1;
-	    Employee employee = employees.get(0);
+	    Employee employee = employees.get(currentIndex);
 		txtIdNumber.setText(String.valueOf(employee.idNumber));
 		txtFirstName.setText(employee.firstName);
 		txtSurname.setText(employee.surname);
@@ -297,7 +297,7 @@ public class Employees {
 	    return;
 	} else {
 	    currentIndex++;
-	    Employee employee = employees.get(0);
+	    Employee employee = employees.get(currentIndex);
 		txtIdNumber.setText(String.valueOf(employee.idNumber));
 		txtFirstName.setText(employee.firstName);
 		txtSurname.setText(employee.surname);
@@ -315,7 +315,7 @@ public class Employees {
 	}
 
 	currentIndex = employees.size() - 1;
-	Employee employee = employees.get(0);
+	Employee employee = employees.get(currentIndex);
 	txtIdNumber.setText(String.valueOf(employee.idNumber));
 	txtFirstName.setText(employee.firstName);
 	txtSurname.setText(employee.surname);
