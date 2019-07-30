@@ -31,6 +31,7 @@ public class Main extends Application {
 	this.stage = stage;
 
 	HBox root = new HBox();
+	root.setPrefHeight(600);
 
 	VBox vbxRow1 = new VBox(10);
 	vbxRow1.setPrefWidth(200);
@@ -57,7 +58,10 @@ public class Main extends Application {
 	Button btnToolsInventory = new Button("Tools Inventory");
 	btnToolsInventory.setOnAction(e -> setVbxRow2Contents("tools_inventory"));
 
-	vbxRow1.getChildren().addAll(hbxLogo, btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory);
+	Button btnEmployee = new Button("Employees");
+	btnEmployee.setOnAction(e -> setVbxRow2Contents("employees"));
+
+	vbxRow1.getChildren().addAll(hbxLogo, btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory, btnEmployee);
 
 
 	VBox vbxRow2 = new VBox();
@@ -200,12 +204,21 @@ public class Main extends Application {
 			uiContent = sparesInventoryUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
 		case "tools_inventory":
 			ToolsInventory toolsInventoryUI = new ToolsInventory();
 			lblTitle.setText("Tools Inventory");
 			uiContent = toolsInventoryUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
+		case "employees":
+			Employees employeesUI = new Employees();
+			lblTitle.setText("Employees");
+			uiContent = employeesUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
 	    default:
 		break;
 	}
