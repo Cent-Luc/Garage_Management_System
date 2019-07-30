@@ -6,6 +6,24 @@
     -fx-font-size: 14;
 }
 
+.btnnav {
+    /* Top-Bottom Right-Left */
+    -fx-border-color: #0f5257;
+    -fx-border-width: 2;
+    -fx-padding: 8 10;
+    -fx-background-color: #0b3142;
+    -fx-border-width: 1 0 1 0;
+    -fx-background-radius: 5;
+    -fx-text-fill: #d6d3f0;
+    -fx-alignment: center;
+}
+
+.btnnav:hover {
+    -fx-border-color: #0f5257;
+    -fx-border-width: 2;
+    -fx-background-color: #0f5257;
+}
+
 .btn {
     /* Top-Bottom Right-Left */
     -fx-border-color: #0b3142;

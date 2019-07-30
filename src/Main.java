@@ -61,7 +61,22 @@ public class Main extends Application {
 	Button btnEmployee = new Button("Employees");
 	btnEmployee.setOnAction(e -> setVbxRow2Contents("employees"));
 
-	vbxRow1.getChildren().addAll(hbxLogo, btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory, btnEmployee);
+	VBox vbxNav = new VBox(5);
+	btnCar.getStyleClass().setAll("btnnav","text-color");
+	btnCarOwners.getStyleClass().setAll("btnnav","text-color");
+	btnSparesInventory.getStyleClass().setAll("btnnav","text-color");
+	btnToolsInventory.getStyleClass().setAll("btnnav","text-color");
+	btnEmployee.getStyleClass().setAll("btnnav","text-color");
+	// set their max widths to max value so they can grow horizontally
+	btnCar.setMaxWidth(Double.MAX_VALUE);
+	btnCarOwners.setMaxWidth(Double.MAX_VALUE);
+	btnSparesInventory.setMaxWidth(Double.MAX_VALUE);
+	btnToolsInventory.setMaxWidth(Double.MAX_VALUE);
+	btnEmployee.setMaxWidth(Double.MAX_VALUE);
+	vbxNav.getChildren().addAll(btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory, btnEmployee);
+	vbxNav.getStylesheets().add("styles.css");
+
+	vbxRow1.getChildren().addAll(hbxLogo, vbxNav);
 
 
 	VBox vbxRow2 = new VBox();
@@ -220,7 +235,7 @@ public class Main extends Application {
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
 			break;
 	    default:
-		break;
+			break;
 	}
     }
 }

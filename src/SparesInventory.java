@@ -331,7 +331,7 @@ public class SparesInventory {
 
 	Spare spare = new Spare();
 	spare.spareName = txtSpareName.getText();
-	if(txtSpareId.getText() != null || !txtSpareId.getText().trim().isEmpty()) {
+	if(!newRecordState && (txtSpareId.getText() != null || !txtSpareId.getText().trim().isEmpty())) {
 	    spare.spareId = Integer.parseInt(txtSpareId.getText());
 	} else if(spare.spareName == null || spare.spareName.trim().isEmpty()) {
 	    Alert alert = new Alert(AlertType.WARNING);

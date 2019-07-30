@@ -111,13 +111,13 @@ public class EmployeeTbl {
 	"WHERE id_number = ?";
 
 	try(PreparedStatement psttmt = conn.prepareStatement(SQL)) {
-	    psttmt.setInt(1, employee.idNumber);
-	    psttmt.setString(2, employee.firstName);
-	    psttmt.setString(3, employee.surname);
-	    psttmt.setString(4, String.valueOf(employee.gender));
-	    psttmt.setString(5, employee.kraPin);
-	    psttmt.setInt(6, employee.phoneNumber);
-	    psttmt.setString(7, employee.email);
+	    psttmt.setString(1, employee.firstName);
+	    psttmt.setString(2, employee.surname);
+	    psttmt.setString(3, String.valueOf(employee.gender));
+	    psttmt.setString(4, employee.kraPin);
+	    psttmt.setInt(5, employee.phoneNumber);
+		psttmt.setString(6, employee.email);
+		psttmt.setInt(7, employee.idNumber);
 
 	    psttmt.executeUpdate();
 	    return true;
