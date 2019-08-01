@@ -62,6 +62,9 @@ public class Main extends Application {
 		Button btnSpecializations = new Button("Specializations");
 		btnSpecializations.setOnAction(e -> setVbxRow2Contents("specializations"));
 
+		Button btnEmployeeSpecializations = new Button("Employee Specializations");
+		btnEmployeeSpecializations.setOnAction(e -> setVbxRow2Contents("employee_specializations"));
+
 		VBox vbxNav = new VBox(5);
 		btnCar.getStyleClass().setAll("btnnav", "text-color");
 		btnCarOwners.getStyleClass().setAll("btnnav", "text-color");
@@ -69,6 +72,7 @@ public class Main extends Application {
 		btnToolsInventory.getStyleClass().setAll("btnnav", "text-color");
 		btnEmployee.getStyleClass().setAll("btnnav", "text-color");
 		btnSpecializations.getStyleClass().setAll("btnnav", "text-color");
+		btnEmployeeSpecializations.getStyleClass().setAll("btnnav", "text-color");
 		// set their max widths to max value so they can grow horizontally
 		btnCar.setMaxWidth(Double.MAX_VALUE);
 		btnCarOwners.setMaxWidth(Double.MAX_VALUE);
@@ -76,8 +80,9 @@ public class Main extends Application {
 		btnToolsInventory.setMaxWidth(Double.MAX_VALUE);
 		btnEmployee.setMaxWidth(Double.MAX_VALUE);
 		btnSpecializations.setMaxWidth(Double.MAX_VALUE);
+		btnEmployeeSpecializations.setMaxWidth(Double.MAX_VALUE);
 		vbxNav.getChildren().addAll(btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory, btnEmployee,
-				btnSpecializations);
+				btnSpecializations, btnEmployeeSpecializations);
 		vbxNav.getStylesheets().add("styles.css");
 
 		vbxRow1.getChildren().addAll(hbxLogo, vbxNav);
@@ -233,6 +238,13 @@ public class Main extends Application {
 			Specializations specializationsUI = new Specializations();
 			lblTitle.setText("Specializations");
 			uiContent = specializationsUI.getContent();
+			hbxContent.getChildren().set(0, uiContent);
+			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			break;
+		case "employee_specializations":
+			EmployeeSpecializations employeeSpecializationsUI = new EmployeeSpecializations();
+			lblTitle.setText("Employee Specializations");
+			uiContent = employeeSpecializationsUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
 			break;
