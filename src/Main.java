@@ -31,7 +31,6 @@ public class Main extends Application {
 		this.stage = stage;
 
 		HBox root = new HBox();
-		root.setPrefHeight(600);
 
 		VBox vbxRow1 = new VBox(10);
 		vbxRow1.setPrefWidth(200);
@@ -205,6 +204,7 @@ public class Main extends Application {
 			uiContent = carsUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "car_owner":
 			CarOwners carOwnersUI = new CarOwners();
@@ -212,6 +212,7 @@ public class Main extends Application {
 			uiContent = carOwnersUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "spares_inventory":
 			SparesInventory sparesInventoryUI = new SparesInventory();
@@ -219,6 +220,7 @@ public class Main extends Application {
 			uiContent = sparesInventoryUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "tools_inventory":
 			ToolsInventory toolsInventoryUI = new ToolsInventory();
@@ -226,6 +228,7 @@ public class Main extends Application {
 			uiContent = toolsInventoryUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "employees":
 			Employees employeesUI = new Employees();
@@ -233,6 +236,7 @@ public class Main extends Application {
 			uiContent = employeesUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "specializations":
 			Specializations specializationsUI = new Specializations();
@@ -240,6 +244,7 @@ public class Main extends Application {
 			uiContent = specializationsUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		case "employee_specializations":
 			EmployeeSpecializations employeeSpecializationsUI = new EmployeeSpecializations();
@@ -247,6 +252,7 @@ public class Main extends Application {
 			uiContent = employeeSpecializationsUI.getContent();
 			hbxContent.getChildren().set(0, uiContent);
 			hbxContent.setHgrow(uiContent, Priority.ALWAYS);
+			stage.sizeToScene();
 			break;
 		// case "cars_summary":
 		// CarsSummary carSummaryUI = new CarsSummary();
