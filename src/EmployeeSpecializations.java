@@ -26,7 +26,6 @@ import java.sql.Connection;
 
 public class EmployeeSpecializations {
     private TextField txtId;
-    private TextField txtSpecializationId;
 	ComboBox<String> cmbSpecialization;
 	ComboBox<String> cmbEmployee;
 	private VBox vbxRoot;
