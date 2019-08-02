@@ -64,6 +64,18 @@ public class Main extends Application {
 		Button btnEmployeeSpecializations = new Button("Employee Specializations");
 		btnEmployeeSpecializations.setOnAction(e -> setVbxRow2Contents("employee_specializations"));
 
+		Button btnEmployeeSummary = new Button("Employee Summary");
+		btnEmployeeSummary.setOnAction(e -> {
+			EmployeeSummary emp = new EmployeeSummary();
+			emp.getStage().show();
+		});
+
+		Button btnToolSummary = new Button("Tools Summary");
+		btnToolSummary.setOnAction(e -> {
+			ToolsSummary emp = new ToolsSummary();
+			emp.getStage().show();
+		});
+
 		VBox vbxNav = new VBox(5);
 		btnCar.getStyleClass().setAll("btnnav", "text-color");
 		btnCarOwners.getStyleClass().setAll("btnnav", "text-color");
@@ -72,6 +84,8 @@ public class Main extends Application {
 		btnEmployee.getStyleClass().setAll("btnnav", "text-color");
 		btnSpecializations.getStyleClass().setAll("btnnav", "text-color");
 		btnEmployeeSpecializations.getStyleClass().setAll("btnnav", "text-color");
+		btnEmployeeSummary.getStyleClass().setAll("btnnav", "text-color");
+		btnToolSummary.getStyleClass().setAll("btnnav", "text-color");
 		// set their max widths to max value so they can grow horizontally
 		btnCar.setMaxWidth(Double.MAX_VALUE);
 		btnCarOwners.setMaxWidth(Double.MAX_VALUE);
@@ -80,11 +94,14 @@ public class Main extends Application {
 		btnEmployee.setMaxWidth(Double.MAX_VALUE);
 		btnSpecializations.setMaxWidth(Double.MAX_VALUE);
 		btnEmployeeSpecializations.setMaxWidth(Double.MAX_VALUE);
+		btnEmployeeSummary.setMaxWidth(Double.MAX_VALUE);
+		btnToolSummary.setMaxWidth(Double.MAX_VALUE);
 		vbxNav.getChildren().addAll(btnCar, btnCarOwners, btnSparesInventory, btnToolsInventory, btnEmployee,
-				btnSpecializations, btnEmployeeSpecializations);
+				btnSpecializations, btnEmployeeSpecializations, btnEmployeeSummary, btnToolSummary);
 		vbxNav.getStylesheets().add("styles.css");
 
 		vbxRow1.getChildren().addAll(hbxLogo, vbxNav);
+		vbxRow1.setMargin(vbxNav, new Insets(5, 0, 25, 0));
 
 		VBox vbxRow2 = new VBox();
 		vbxRow2.setPrefWidth(650);

@@ -30,7 +30,13 @@ echo "14. EmployeeSpecializationsTbl"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls EmployeeSpecializationsTbl.java
 echo "15. EmployeeSpecializations"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls EmployeeSpecializations.java
-echo "16. Main"
+echo "16. JobAppointmentsTbl"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls JobAppointmentsTbl.java
+echo "17. Employees Summary"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls,javafx.web EmployeeSummary.java
+echo "18. Tools Summary"
+javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls,javafx.web ToolsSummary.java
+echo "19. Main"
 javac --module-path /opt/javafx/javafx-sdk-11.0.2/lib/ --add-modules javafx.controls Main.java
 echo "===================="
 echo "Done"
