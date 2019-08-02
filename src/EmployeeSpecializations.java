@@ -17,43 +17,64 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ComboBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+import java.sql.Connection;
+
 public class EmployeeSpecializations {
     private TextField txtId;
-    private TextField txtIdNumber;
-    private TextField txtFirstName;
-    private TextField txtSurname;
     private TextField txtSpecializationId;
-	private TextField txtSpecializationName;
+	ComboBox<String> cmbSpecialization;
+	ComboBox<String> cmbEmployee;
 	private VBox vbxRoot;
     private int currentIndex;
-    private EmployeeSpecializationsTbl employeeSpecializationsTbl;
-    private ArrayList<EmployeeSpecialization> employeeSpecializations;
+	private EmployeeSpecializationsTbl employeeSpecializationsTbl;
+	private ArrayList<EmployeeSpecialization> employeeSpecializations;
+	private SpecializationsTbl specializationsTbl;
+	private ArrayList<Specialization> specializations;
+	private EmployeeTbl employeeTbl;
+	private ArrayList<Employee> employees;
 
     private boolean newRecordState;
 
     EmployeeSpecializations() {
 	txtId = null;
-	txtIdNumber = null;
-	txtFirstName = null;
-	txtSurname = null;
-	txtSpecializationId = null;
-	txtSpecializationName = null;
+
+	cmbSpecialization = null;
+
 	currentIndex = 0;
+
 	employeeSpecializationsTbl = null;
 	employeeSpecializations = null;
+
+	specializationsTbl = null;
+	specializations = null;
+
+	employeeTbl = null;
+	employees = null;
+
 	newRecordState = false;
     }
 
     public VBox getContent() {
 	PostgresDbConn garageDb = new PostgresDbConn();
-	employeeSpecializationsTbl = new EmployeeSpecializationsTbl(garageDb.connect());
+	Connection conn = garageDb.connect();
+
+	employeeSpecializationsTbl = new EmployeeSpecializationsTbl(conn);
 	employeeSpecializationsTbl.getAllEmployeeSpecializations();
 	employeeSpecializations = employeeSpecializationsTbl.employeeSpecializations;
 	EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(0);
+
+	employeeTbl = new EmployeeTbl(conn);
+	employeeTbl.getAllEmployees();
+	employees = employeeTbl.employees;
+
+	specializationsTbl = new SpecializationsTbl(conn);
+	specializationsTbl.getAllSpecializations();
+	specializations = specializationsTbl.specializations;
 
 	txtId = new TextField();
 	txtId.setDisable(true);
@@ -61,36 +82,22 @@ public class EmployeeSpecializations {
 	lblId.setLabelFor(txtId);
 	lblId.setMnemonicParsing(true);
 
-	txtIdNumber = new TextField();
-	Label lblIdNumber = new Label("Employee Id _Number:");
-	lblIdNumber.setLabelFor(txtIdNumber);
-	lblIdNumber.setMnemonicParsing(true);
-	// Button btnIdNumber = new Button("Pick");
-	// btnIdNumber.setOnAction(e -> showPicker("employees"));
-	// btnIdNumber.getStyleClass().setAll("btn","text-color");
+	Label lblEmployee = new Label("_Employee:");
+	cmbEmployee = new ComboBox<>();
+	for(Employee emp: employees) {
+		String row = String.valueOf(emp.idNumber) + " : " + emp.firstName + " " + emp.surname;
+		cmbEmployee.getItems().add(row);
+	}
+	lblEmployee.setLabelFor(cmbEmployee);
+	lblEmployee.setMnemonicParsing(true);
 
-	txtFirstName = new TextField();
-	txtFirstName.setDisable(true);
-	Label lblFirstName = new Label("_First Name:");
-	lblFirstName.setLabelFor(txtFirstName);
-	lblFirstName.setMnemonicParsing(true);
-
-	txtSurname = new TextField();
-	txtSurname.setDisable(true);
-	Label lblSurname = new Label("_Surname:");
-	lblSurname.setLabelFor(txtSurname);
-	lblSurname.setMnemonicParsing(true);
-
-	txtSpecializationId = new TextField();
-	Label lblSpecializationId = new Label("Specialization I_d:");
-	lblSpecializationId.setLabelFor(txtSpecializationId);
-	lblSpecializationId.setMnemonicParsing(true);
-
-	txtSpecializationName = new TextField();
-	txtSpecializationName.setDisable(true);
-	Label lblSpecializationName = new Label("Specialization Na_me:");
-	lblSpecializationName.setLabelFor(txtSpecializationName);
-	lblSpecializationName.setMnemonicParsing(true);
+	Label lblSpecialization = new Label("_Specialization:");
+	cmbSpecialization = new ComboBox<>();
+	for(Specialization varSp: specializations) {
+		cmbSpecialization.getItems().add(String.valueOf(varSp.specializationId) + ": " + varSp.specializationName);
+	}
+	lblSpecialization.setLabelFor(cmbSpecialization);
+	lblSpecialization.setMnemonicParsing(true);
 
 	GridPane grdFields = new GridPane();
 	grdFields.setVgap(25);
@@ -100,39 +107,31 @@ public class EmployeeSpecializations {
 	grdFields.getStyleClass().setAll("brd");
 
 	txtId.setText(String.valueOf(employeeSpecialization.id));
-	txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-	txtFirstName.setText(employeeSpecialization.firstName);
-	txtSurname.setText(employeeSpecialization.surname);
-	txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-	txtSpecializationName.setText(employeeSpecialization.specializationName);
+	String row = String.valueOf(employeeSpecialization.idNumber) 
+				+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+	cmbEmployee.setValue(row);
+	cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 
 	// Add the controls to the Grid Pane
 	grdFields.addRow(0, lblId, txtId);
-	grdFields.addRow(1, lblIdNumber, /*btnIdNumber, */txtIdNumber);
-	grdFields.addRow(2, lblFirstName, txtFirstName);
-	grdFields.addRow(3, lblSurname, txtSurname);
-	grdFields.addRow(4, lblSpecializationId, txtSpecializationId);
-	grdFields.addRow(5, lblSpecializationName, txtSpecializationName);
+	grdFields.addRow(1, lblEmployee, cmbEmployee);
+	grdFields.addRow(2, lblSpecialization, cmbSpecialization);
 
 	// Align the labels to the right
 	grdFields.setHalignment(lblId, HPos.RIGHT);
-	grdFields.setHalignment(lblIdNumber, HPos.RIGHT);
-	grdFields.setHalignment(lblFirstName, HPos.RIGHT);
-	grdFields.setHalignment(lblSurname, HPos.RIGHT);
-	grdFields.setHalignment(lblSpecializationId, HPos.RIGHT);
-	grdFields.setHalignment(lblSpecializationName, HPos.RIGHT);
+	grdFields.setHalignment(lblEmployee, HPos.RIGHT);
+	grdFields.setHalignment(lblSpecialization, HPos.RIGHT);
 
 	// I want the text fields to expand to fit the left spacing
 	// interestingly, doing this for the first element affects the rest
 	GridPane.setHgrow(txtId, Priority.ALWAYS);
+	cmbEmployee.setMaxWidth(Double.MAX_VALUE);
+	cmbSpecialization.setMaxWidth(Double.MAX_VALUE);
 
 	// Set the labels to their appropriate css classes
 	lblId.getStyleClass().setAll("text-color", "lbl");
-	lblIdNumber.getStyleClass().setAll("text-color", "lbl");
-	lblFirstName.getStyleClass().setAll("text-color", "lbl");
-	lblSurname.getStyleClass().setAll("text-color", "lbl");
-	lblSpecializationId.getStyleClass().setAll("text-color", "lbl");
-	lblSpecializationName.getStyleClass().setAll("text-color", "lbl");
+	lblEmployee.getStyleClass().setAll("text-color", "lbl");
+	lblSpecialization.getStyleClass().setAll("text-color", "lbl");
 
 	// The utility buttons
 	VBox vbxUtility = new VBox(5);
@@ -199,19 +198,6 @@ public class EmployeeSpecializations {
 
 	return vbxRoot;
 	}
-	
-	// private void showPicker(String formToShow) {
-	// 	VBox uiContent;
-	// 	switch(formToShow) {
-	// 	case "employees":
-	// 		Employees employeesUI = new Employees();
-	// 		uiContent = employeesUI.getContent();
-	// 		uiContent.setMaxWidth(Double.MAX_VALUE);
-	// 		vbxRoot.getChildren().set(0, uiContent);
-	// 		break;
-	// 	}
-	// }
-
 
     // A utility function to Confirm if the user wants to navigate while still there is a new record
     private boolean leaveNewRecordState() {
@@ -234,15 +220,14 @@ public class EmployeeSpecializations {
     private void goFirst() {
 	if(!leaveNewRecordState()) {
 	    return;
-	} 
+	}  
 
 	EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(0);
 	txtId.setText(String.valueOf(employeeSpecialization.id));
-	txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-	txtFirstName.setText(employeeSpecialization.firstName);
-	txtSurname.setText(employeeSpecialization.surname);
-	txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-	txtSpecializationName.setText(employeeSpecialization.specializationName);
+	String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+	cmbEmployee.setValue(row);
+	cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	currentIndex = 0;
 	newRecordState = false;
     }
@@ -260,11 +245,10 @@ public class EmployeeSpecializations {
 	    // TODO: Abstract this appropriately
 	    EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(0);
 		txtId.setText(String.valueOf(employeeSpecialization.id));
-		txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-		txtFirstName.setText(employeeSpecialization.firstName);
-		txtSurname.setText(employeeSpecialization.surname);
-		txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-		txtSpecializationName.setText(employeeSpecialization.specializationName);
+		String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+		cmbEmployee.setValue(row);
+		cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	    currentIndex = 0;
 	    newRecordState = false;
 	    return;
@@ -272,11 +256,10 @@ public class EmployeeSpecializations {
 	    currentIndex--;
 	    EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(currentIndex);
 		txtId.setText(String.valueOf(employeeSpecialization.id));
-		txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-		txtFirstName.setText(employeeSpecialization.firstName);
-		txtSurname.setText(employeeSpecialization.surname);
-		txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-		txtSpecializationName.setText(employeeSpecialization.specializationName);
+		String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+		cmbEmployee.setValue(row);
+		cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	    newRecordState = false;
 	}
     }
@@ -293,22 +276,20 @@ public class EmployeeSpecializations {
 	    currentIndex = employeeSpecializations.size() - 1;
 	    EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(currentIndex);
 		txtId.setText(String.valueOf(employeeSpecialization.id));
-		txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-		txtFirstName.setText(employeeSpecialization.firstName);
-		txtSurname.setText(employeeSpecialization.surname);
-		txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-		txtSpecializationName.setText(employeeSpecialization.specializationName);
+		String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+		cmbEmployee.setValue(row);
+		cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	    newRecordState = false;
 	    return;
 	} else {
 	    currentIndex++;
 	    EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(currentIndex);
 		txtId.setText(String.valueOf(employeeSpecialization.id));
-		txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-		txtFirstName.setText(employeeSpecialization.firstName);
-		txtSurname.setText(employeeSpecialization.surname);
-		txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-		txtSpecializationName.setText(employeeSpecialization.specializationName);
+		String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+		cmbEmployee.setValue(row);
+		cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	    newRecordState = false;
 	}
     }
@@ -321,11 +302,10 @@ public class EmployeeSpecializations {
 	currentIndex = employeeSpecializations.size() - 1;
 	EmployeeSpecialization employeeSpecialization = employeeSpecializations.get(currentIndex);
 	txtId.setText(String.valueOf(employeeSpecialization.id));
-	txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-	txtFirstName.setText(employeeSpecialization.firstName);
-	txtSurname.setText(employeeSpecialization.surname);
-	txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-	txtSpecializationName.setText(employeeSpecialization.specializationName);
+	String row = String.valueOf(employeeSpecialization.idNumber) 
+					+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+	cmbEmployee.setValue(row);
+	cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 	newRecordState = false;
     }
 
@@ -349,11 +329,10 @@ public class EmployeeSpecializations {
 			currentIndex = i;
 			employeeSpecialization = employeeSpecializations.get(currentIndex);
 			txtId.setText(String.valueOf(employeeSpecialization.id));
-			txtIdNumber.setText(String.valueOf(employeeSpecialization.idNumber));
-			txtFirstName.setText(employeeSpecialization.firstName);
-			txtSurname.setText(employeeSpecialization.surname);
-			txtSpecializationId.setText(String.valueOf(employeeSpecialization.specializationId));
-			txtSpecializationName.setText(employeeSpecialization.specializationName);
+			String row = String.valueOf(employeeSpecialization.idNumber) 
+			+ " : " + employeeSpecialization.firstName + " " + employeeSpecialization.surname;
+			cmbEmployee.setValue(row);
+			cmbSpecialization.setValue(String.valueOf(employeeSpecialization.specializationId) + ": " + employeeSpecialization.specializationName);
 			newRecordState = false;
 		    }
 		}
@@ -373,11 +352,8 @@ public class EmployeeSpecializations {
 	}
 
 	txtId.setText("");
-	txtIdNumber.setText("");
-	txtFirstName.setText("");
-	txtSurname.setText("");
-	txtSpecializationId.setText("");
-	txtSpecializationName.setText("");
+	cmbEmployee.setValue(null);
+	cmbSpecialization.setValue(null);
 
 	newRecordState = true;
     }
@@ -390,14 +366,14 @@ public class EmployeeSpecializations {
 	EmployeeSpecialization employeeSpecialization = new EmployeeSpecialization();
 	if(!newRecordState && (txtId.getText() != null || !txtId.getText().trim().isEmpty())) {
 	    employeeSpecialization.id = Integer.parseInt(txtId.getText());
-	} else if(txtIdNumber.getText() == null || txtIdNumber.getText().trim().isEmpty()) {
+	} else if(cmbEmployee.getValue() == null) {
 	    Alert alert = new Alert(AlertType.WARNING);
 	    alert.setTitle("Warning");
 	    alert.setHeaderText(null);
-	    alert.setContentText("The ID Number field should not be left blank");
+	    alert.setContentText("The Employee field should not be left blank");
 	    alert.showAndWait();
 	    return;
-	} else if(txtSpecializationId.getText() == null || txtSpecializationId.getText().trim().isEmpty()) {
+	} else if(cmbSpecialization.getValue() == null) {
 	    Alert alert = new Alert(AlertType.WARNING);
 	    alert.setTitle("Warning");
 	    alert.setHeaderText(null);
@@ -408,8 +384,8 @@ public class EmployeeSpecializations {
 
 	// I am posting this here so as to avoid errors when
 	// no values have been entered. 
-	employeeSpecialization.idNumber = Integer.parseInt(txtIdNumber.getText());
-	employeeSpecialization.specializationId = Integer.parseInt(txtSpecializationId.getText());
+	employeeSpecialization.idNumber = Integer.parseInt(cmbEmployee.getValue().split(":")[0].trim());
+	employeeSpecialization.specializationId = Integer.parseInt(cmbSpecialization.getValue().split(":")[0].trim());
 
 	if(newRecordState) {
 	    if(employeeSpecializationsTbl.insertEmployeeSpecialization(employeeSpecialization)) {
@@ -456,13 +432,10 @@ public class EmployeeSpecializations {
 	    return;
 	}
 
+	// When deleting, only the id of the record is required
+	// TODO: Make the delete fn in the corresponding table require only the record id
 	EmployeeSpecialization employeeSpecialization = new EmployeeSpecialization();
-	employeeSpecialization.firstName = txtFirstName.getText();
-	employeeSpecialization.surname = txtSurname.getText();
-	employeeSpecialization.specializationName = txtSpecializationName.getText();
 	employeeSpecialization.id = Integer.parseInt(txtId.getText());
-	employeeSpecialization.idNumber = Integer.parseInt(txtIdNumber.getText());
-	employeeSpecialization.specializationId = Integer.parseInt(txtSpecializationId.getText());
 
 	// Confirm if the user wants to delete
 	Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -106,7 +106,7 @@ public class EmployeeSpecializationsTbl {
     public boolean updateEmployeeSpecialization(EmployeeSpecialization employeeSpecialization) {
 	String SQL = "UPDATE employee_specializations SET " 
 	    + "employee_id_number = ? , " 
-	    + "specialization_id = ?, "
+	    + "specialization_id = ? "
 	    + "WHERE id = ?";
 
 	try (PreparedStatement psttmt = conn.prepareStatement(SQL)) {

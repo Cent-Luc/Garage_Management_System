@@ -52,6 +52,31 @@
     -fx-border-width: 0 0 1 0;
 }
 
+/* The ListCell that shows the selected item in a non-editable ComboBox */
+.combo-box .list-cell {
+    -fx-background-color: #0b3142;
+    -fx-text-fill: #d6d3f0;
+    -fx-font-size: 16;
+    -fx-border-color: #0b3142;
+    -fx-border-width: 1 1 1 1;
+}
+
+/* Style the arrow button area */
+.combo-box .arrow-button {
+    -fx-background-color: #9c92a3;
+    -fx-border-color: #0b3142;
+    -fx-border-width: 1 1 1 1;
+}
+
+/* Set the text color in the popup list for ComboBox to blue */
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #d6d3f0;
+    -fx-background-color: #0b3142;
+    -fx-font-size: 15;
+    -fx-border-color: #9c92a3;
+    -fx-border-width: 0.7 0.7 0.7 0.7;
+}
+
 .text-field:focused {
     -fx-background-color: transparent;
     -fx-text-fill: #0b3142;

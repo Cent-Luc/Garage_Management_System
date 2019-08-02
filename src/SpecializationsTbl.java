@@ -9,6 +9,16 @@ class Specialization {
 	public int specializationId;
 	public String specializationName;
 	public int rate;
+
+	Specialization(){
+		// Empty Constructor
+	}
+
+	Specialization(Specialization sp) {
+		this.specializationId = sp.specializationId;
+		this.specializationName = sp.specializationName;
+		this.rate = sp.rate;
+	}
 }
 
 public class SpecializationsTbl {
